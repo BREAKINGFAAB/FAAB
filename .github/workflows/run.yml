@@ -8,12 +8,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: # 👈 این بخش را اضافه کنید تا ربات اجازه نوشتن داشته باشد
+      contents: write
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4 # 👈 آپدیت شد به نسخه ۴ برای رفع اخطار
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5 # 👈 آپدیت شد به نسخه ۵ برای رفع اخطار
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -22,8 +24,8 @@ jobs:
 
     - name: Commit and Push Results
       run: |
-        git config --global user.name "Github Action"
-        git config --global user.email "actions@github.com"
-        git add .
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add best_configs.txt
         git commit -m "Update top 20 configs" || exit 0
-        git push || true
+        git push
